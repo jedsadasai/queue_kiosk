@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/setup_title"
+            android:textColor="@color/text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/setupBack"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_back_to_login" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setupDriverSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_driver"
+            android:textColor="@color/text_secondary"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/setupDriverGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/setup_paper"
+        android:textColor="@color/text_secondary"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/setupPaperGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/setupPaper80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_paper_80" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/setupPaper58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/setup_paper_58" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/setupProgress"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminateTint="@color/brand"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/setupStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/setupEnableBluetooth"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/setup_enable_bluetooth"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/setupRescan"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_rescan" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="12dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/setupDevices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/setupSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/setupTestPrint"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/setup_test_print" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/setupContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="@string/setup_continue" />
+    </LinearLayout>
+</LinearLayout>

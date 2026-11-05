@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <!-- Long-press opens the staff menu (change printer / log out) -->
+    <LinearLayout
+        android:id="@+id/kioskHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brand"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="24dp">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_logo_circle"
+            android:contentDescription="@null"
+            android:padding="3dp"
+            android:src="@drawable/logo_hospital" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/kioskOrgName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/kioskDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/on_brand_secondary"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/kioskClosedBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/danger"
+        android:gravity="center"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kiosk_welcome"
+            android:textColor="@color/text_primary"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/kioskWorkflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="26sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/kioskTakeQueue"
+            android:layout_width="420dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/kiosk_take_queue"
+            android:textSize="56sp"
+            android:textStyle="bold"
+            app:cornerRadius="32dp"
+            app:elevation="6dp" />
+
+        <ProgressBar
+            android:id="@+id/kioskProgress"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:indeterminateTint="@color/brand"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/kiosk_help"
+            android:textColor="@color/text_secondary"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/kioskPrinterStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="12dp"
+        android:textSize="14sp" />
+</LinearLayout>

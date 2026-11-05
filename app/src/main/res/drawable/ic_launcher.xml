@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher icon: the hospital logo on white. 21dp inset keeps the round logo inside the 66dp safe zone. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/white" />
+    <foreground>
+        <inset
+            android:drawable="@drawable/logo_hospital"
+            android:inset="21dp" />
+    </foreground>
+</adaptive-icon>

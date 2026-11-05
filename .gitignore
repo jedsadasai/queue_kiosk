@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+# Proprietary Epson SDK binaries - never commit
+printer-epson/libs/
+printer-epson/src/main/jniLibs/
+# Reference APK kept next to the project
+*.apk
+# Raw Epson SDK downloads (proprietary, see EULA)
+ePOS_SDK_*/
+ePOS_SDK_*.zip

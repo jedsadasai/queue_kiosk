@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.QueueKiosk" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/brand_light</item>
+        <item name="colorOnPrimaryContainer">@color/brand</item>
+        <item name="colorSecondaryContainer">@color/brand_light</item>
+        <item name="colorOnSecondaryContainer">@color/brand</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>

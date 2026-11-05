@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/dialogTicketMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- The exact bitmap that was sent to the printer -->
+    <ImageView
+        android:id="@+id/dialogTicketImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_ticket_preview"
+        android:contentDescription="@string/kiosk_ticket_preview"
+        android:maxHeight="520dp"
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/dialogTicketCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialogTicketClose"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:minWidth="160dp"
+        android:text="@string/kiosk_close"
+        android:textSize="18sp" />
+</LinearLayout>

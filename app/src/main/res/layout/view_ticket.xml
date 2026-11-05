@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The printed queue ticket, laid out like fleQ's view_queue_card_for_c_building.xml (Rajthanee):
+
+      (logo)  โรงพยาบาลราชธานี
+              0295 อาคาร C ชั้น 1
+      HN ............................
+      … history sheet (optional) …
+      [จำนวนคิวรอ 3 คิว]   05-11-2026 | 08:58
+      ——— โปรดรอเจ้าหน้าที่คัดกรองเรียกคิว ———
+
+  Designed 576dp wide; TicketRenderer maps 1dp to 1 printer dot on 80 mm paper (58 mm scales down).
+  fleQ rendered at ~550 px, so its sp sizes are reused as dp here. Fonts are fleQ's:
+  Noto Serif Thai SemiBold (text) and Arimo Bold (queue number).
+  Black on white only: thermal printers can't print colours.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="30dp">
+
+    <!-- Logo + hospital name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ticketLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ticket_logo" />
+
+        <TextView
+            android:id="@+id/ticketOrgName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/noto_serif_thai_semi_bold"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="28dp"
+            tools:text="โรงพยาบาลราชธานี" />
+    </LinearLayout>
+
+    <!-- Queue number centred on the ticket, building as a superscript to its right -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/ticketNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arimo_bold"
+            android:includeFontPadding="false"
+            android:textColor="@android:color/black"
+            android:textSize="54dp"
+            tools:text="0295" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/ticketBuilding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/noto_serif_thai_semi_bold"
+                android:includeFontPadding="false"
+                android:textColor="@android:color/black"
+                android:textSize="26dp"
+                tools:text="อาคาร C ชั้น 1" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Optional QR code (url_qr). fleQ never printed it, so it is off by default. -->
+    <ImageView
+        android:id="@+id/ticketQr"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+
+    <!-- OPD/ER history sheet: rows added by TicketRenderer from R.array.ticket_history_fields -->
+    <LinearLayout
+        android:id="@+id/ticketHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <!-- Waiting count on the left, date | time on the right; date centred when the count is hidden -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ticketTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/noto_serif_thai_semi_bold"
+            android:textColor="@android:color/black"
+            android:textSize="22dp"
+            tools:text="จำนวนคิวรอ 3 คิว" />
+
+        <TextView
+            android:id="@+id/ticketDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_serif_thai_semi_bold"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            tools:text="05-11-2026 | 08:58" />
+    </LinearLayout>
+
+    <!-- ——— footer ——— -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/noto_serif_thai_semi_bold"
+            android:text="@string/ticket_footer"
+            android:textColor="@android:color/black"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/black" />
+    </LinearLayout>
+</LinearLayout>

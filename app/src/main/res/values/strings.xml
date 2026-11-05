@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Queue Kiosk</string>
+
+    <!-- Ticket (fleQ view_queue_card_for_c_building.xml) -->
+    <string name="ticket_org_name">โรงพยาบาลราชธานี</string>
+    <string name="ticket_waiting_count">จำนวนคิวรอ %1$s คิว</string>
+    <string name="ticket_date_time" translatable="false">%1$s | %2$s</string>
+    <string name="ticket_footer">โปรดรอเจ้าหน้าที่คัดกรองเรียกคิว</string>
+    <string name="ticket_dotted_line" translatable="false">............................................................................................................................................................................................................................</string>
+    <!-- History sheet lines. "label|suffix" prints the suffix at the end of the dots (BW ..... Kg);
+         an empty item prints a blank dotted line. -->
+    <string-array name="ticket_history_fields">
+        <item>HN</item>
+        <item>ห้อง/เตียง</item>
+        <item>ชื่อ-สกุล</item>
+        <item>Hx</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>โรคประจำตัว</item>
+        <item>BW|Kg</item>
+        <item>V/S</item>
+        <item>การแพ้ยา</item>
+        <item>ส่วนสูง</item>
+        <item>LMP</item>
+        <item>ใบรับรองแพทย์</item>
+        <item>ประกันชีวิต/อื่น ๆ</item>
+    </string-array>
+
+    <!-- API errors (fleQ login_screen_* messages) -->
+    <string name="error_invalid_url">URL ไม่ถูกต้อง</string>
+    <string name="error_bad_credentials">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ Username/Password อาจไม่ถูกต้อง</string>
+    <string name="error_unauthorized">เซิฟเวอร์ปฏิเสธ Token กรุณาเข้าสู่ระบบใหม่</string>
+    <string name="error_server">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ url address ของเซิฟเวอร์อาจไม่ถูกต้อง</string>
+    <string name="error_network">ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="error_bad_response">ข้อมูลจากเซิฟเวอร์ไม่ถูกต้อง กรุณาตรวจสอบ URL</string>
+    <string name="error_not_logged_in">กรุณาเข้าสู่ระบบ</string>
+    <string name="error_local_network_permission">ไม่สามารถเชื่อมต่อเซิฟเวอร์ในเครือข่ายภายในได้\nกรุณาอนุญาตสิทธิ์ \"อุปกรณ์ที่อยู่ใกล้เคียง\" (Nearby devices) ให้แอปในการตั้งค่า</string>
+
+    <!-- Splash -->
+    <string name="splash_signing_in">กำลังเข้าสู่ระบบ…</string>
+    <string name="splash_retrying">%1$s\nกำลังเชื่อมต่อเซิฟเวอร์อีกครั้ง…</string>
+
+    <!-- Login -->
+    <string name="login_title">ตั้งค่าเครื่องกดบัตรคิว</string>
+    <string name="login_url">Host/Url</string>
+    <string name="login_url_hint">https://www.example.com หรือ http://192.168.1.10:8080</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_working_hours">เวลาเปิดทำการ</string>
+    <string name="login_to">ถึง</string>
+    <string name="login_hour_format">%1$d:00 น.</string>
+    <string name="login_show_total">แสดงจำนวนคิวรอ</string>
+    <string name="login_show_history">แสดงใบซักประวัติ OPD/ER</string>
+    <string name="login_show_qr">พิมพ์ QR Code บนบัตรคิว</string>
+    <string name="login_button">เข้าสู่ระบบ</string>
+    <string name="login_signing_in">กำลังเข้าสู่ระบบ…</string>
+    <string name="login_success">เข้าสู่ระบบสำเร็จ</string>
+    <string name="login_fill_all_fields">กรุณากรอกข้อมูลให้ครบถ้วน เพื่อเข้าสู่ระบบ</string>
+    <string name="login_url_needs_scheme">กรุณากรอก https:// สำหรับ www หรือ http:// สำหรับเลข IP</string>
+    <string name="login_invalid_hours">เวลาเปิดต้องน้อยกว่าเวลาปิดทำการ</string>
+
+    <!-- Printer setup (fleQ setup_device_screen_*) -->
+    <string name="setup_title">เลือกเครื่องพิมพ์</string>
+    <string name="setup_back_to_login">ตั้งค่าเซิฟเวอร์</string>
+    <string name="setup_driver">ชนิดเครื่องพิมพ์</string>
+    <string name="setup_paper">ขนาดกระดาษ</string>
+    <string name="setup_paper_80">80 มม.</string>
+    <string name="setup_paper_58">58 มม.</string>
+    <string name="setup_scanning">กำลังค้นหาเครื่องพิมพ์…</string>
+    <string name="setup_no_devices">ไม่พบเครื่องพิมพ์ กรุณาเปิดเครื่องพิมพ์และจับคู่ (Pair) ในการตั้งค่า Bluetooth แล้วค้นหาอีกครั้ง</string>
+    <string name="setup_pick_printer">กรุณาเลือกเครื่องพิมพ์ที่ต้องการใช้งาน</string>
+    <string name="setup_bluetooth_off">บลูทูธถูกปิดการใช้งาน\nกรุณาเปิดการใช้งานบลูทูธ เพื่อค้นหาเครื่องพิมพ์</string>
+    <string name="setup_permission_denied">ไม่ได้รับอนุญาตให้ใช้ Bluetooth กรุณาอนุญาตสิทธิ์ \"อุปกรณ์ที่อยู่ใกล้เคียง\" (Android 12+) หรือ \"ตำแหน่ง\" (Android 10-11) ในการตั้งค่าแอป</string>
+    <string name="setup_location_off">Android 10-11: กรุณาเปิด Location (ตำแหน่ง) เพื่อค้นหาเครื่องพิมพ์ใหม่ (เครื่องที่จับคู่แล้วยังแสดงตามปกติ)</string>
+    <string name="setup_enable_bluetooth">เปิด Bluetooth</string>
+    <string name="setup_rescan">ค้นหาอีกครั้ง</string>
+    <string name="setup_selected_hint">กด \"ทดสอบพิมพ์\" เพื่อตรวจสอบ แล้วกด \"เริ่มใช้งาน\"</string>
+    <string name="setup_selected_printer">เครื่องพิมพ์ที่เลือก: %1$s (%2$s)</string>
+    <string name="setup_no_printer_selected">ยังไม่ได้เลือกเครื่องพิมพ์</string>
+    <string name="setup_test_print">ทดสอบพิมพ์</string>
+    <string name="setup_test_printing">กำลังพิมพ์ทดสอบ…</string>
+    <string name="setup_test_ok">พิมพ์ทดสอบสำเร็จ</string>
+    <string name="setup_test_failed">พิมพ์ไม่สำเร็จ: %1$s</string>
+    <string name="setup_continue">เริ่มใช้งาน</string>
+
+    <!-- Kiosk (fleQ main_screen_*) -->
+    <string name="kiosk_welcome">ยินดีต้อนรับ</string>
+    <string name="kiosk_take_queue">กดคิว</string>
+    <string name="kiosk_help">หากพบปัญหาในการใช้งาน\nโปรดติดต่อเจ้าหน้าที่ประจำเคาท์เตอร์</string>
+    <string name="kiosk_printer_connected">เชื่อมต่อเครื่องพิมพ์สำเร็จ</string>
+    <string name="kiosk_printer_connect_failed">ไม่สามารถเชื่อมต่อเครื่องพิมพ์ได้\nกรุณาเลือกเครื่องพิมพ์ใหม่อีกครั้ง</string>
+    <string name="kiosk_printer_status_connected">เครื่องพิมพ์ %1$s: พร้อมใช้งาน</string>
+    <string name="kiosk_printer_status_connecting">กำลังเชื่อมต่อเครื่องพิมพ์ %1$s…</string>
+    <string name="kiosk_printer_status_failed">เครื่องพิมพ์ %1$s: เชื่อมต่อไม่ได้</string>
+    <string name="kiosk_printer_status_disconnected">เครื่องพิมพ์ %1$s: ยังไม่เชื่อมต่อ</string>
+    <string name="kiosk_out_of_hours">ขณะนี้อยู่นอกเวลาทำการ ขออภัยในความไม่สะดวก</string>
+    <string name="kiosk_closed_banner">ปิดทำการ (เปิด %1$d:00 – %2$d:00 น.)</string>
+    <string name="kiosk_cannot_create_queue">ไม่สามารถสร้างบัตรคิวได้</string>
+    <string name="kiosk_take_your_ticket">กรุณารับบัตรคิว</string>
+    <string name="kiosk_print_failed_photo">ไม่สามารถพิมพ์บัตรคิวได้\nกรุณาถ่ายภาพบัตรคิวของท่านไว้เพื่อใช้ในการเข้ารับบริการ</string>
+    <string name="kiosk_auto_close_in">ปิดอัตโนมัติใน %1$d วินาที</string>
+    <string name="kiosk_ticket_preview">บัตรคิว</string>
+    <string name="kiosk_close">ปิด</string>
+
+    <!-- Staff menu -->
+    <string name="admin_title">เมนูเจ้าหน้าที่</string>
+    <string name="admin_change_printer">เปลี่ยนเครื่องพิมพ์</string>
+    <string name="admin_logout">ออกจากระบบ</string>
+</resources>

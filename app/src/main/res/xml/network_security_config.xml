@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fleQ allows http://<LAN IP> servers ("กรุณากรอก ... http:// สำหรับเลข IP"), so cleartext must be allowed.
+     If your server is HTTPS-only, set cleartextTrafficPermitted="false". -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
