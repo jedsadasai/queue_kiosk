@@ -28,6 +28,12 @@
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />
 
+    <!-- Open the kiosk when the tablet is switched on (fleQ OnDeviceBootReceiver).
+         Android 10+ only lets a boot receiver start an activity if the user has granted
+         "Display over other apps", which the login screen asks for. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-feature
         android:name="android.hardware.bluetooth"
         android:required="false" />
@@ -60,5 +66,15 @@
         <activity
             android:name=".ui.KioskActivity"
             android:launchMode="singleTask" />
+
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

@@ -104,7 +104,20 @@ node tools/mock-server/server.js            # prints http://<your-PC-IP>:8080
 - Text: `app/src/main/res/values/strings.xml` (Thai, mostly taken from fleQ's wording).
 - Package name: `com.queuekiosk` (`namespace`/`applicationId` in `app/build.gradle.kts`).
 
+## Auto start when the tablet is switched on
+`BootReceiver` (fleQ `OnDeviceBootReceiver`) opens the app on `BOOT_COMPLETED`. The splash screen then
+re-logs in by itself, retrying every 5 s until Wi-Fi and the server are up, and goes to the kiosk screen.
+It is on by default and can be switched off with "เปิดแอปอัตโนมัติเมื่อเปิดเครื่อง" at login.
+
+One-time setup on each tablet:
+1. **Allow "Display over other apps"** (แสดงทับแอปอื่น). Android 10+ blocks apps from opening themselves
+   from the background without it. The login screen shows a red line to tap while it is missing.
+   Or via adb: `adb shell appops set com.queuekiosk SYSTEM_ALERT_WINDOW allow`.
+2. **Screen lock: None**. Android sends `BOOT_COMPLETED` only after the device is unlocked.
+3. Open the app once after installing. Android doesn't send boot events to an app that has never been opened.
+4. Some brands (Xiaomi, Oppo, Vivo, Huawei…) also need **Autostart** allowed in their own security/battery app.
+
 ## Not ported from fleQ
-- Auto-start on boot (`OnDeviceBootReceiver`) and the open/close alarms (`RajtheneeAlarmManager`).
-  Opening hours are checked when the button is pressed, and the screen is kept on only during them.
+- The open/close alarms (`RajtheneeAlarmManager`). Opening hours are checked when the button is pressed,
+  and the screen is kept on only during them.
   For a locked-down kiosk, use Android's Lock Task / a kiosk launcher.

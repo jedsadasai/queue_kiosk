@@ -38,6 +38,8 @@ class KioskPrefs(context: Context) : SessionStore {
     var showHistorySheet by prefs.boolean("show_history_sheet", false)
     var showTotalQueue by prefs.boolean("show_total_queue", true)
     var showQrCode by prefs.boolean("show_qr_code", false)
+    /** fleQ always opened itself after boot; here it can be switched off at login. */
+    var autoStartOnBoot by prefs.boolean("auto_start_on_boot", true)
 
     // --- printer (fleQ: "selected_printer") ---
     var printerDriverId by prefs.string("printer_driver", BluetoothEscPosDriver.ID)

@@ -136,6 +136,27 @@
                     android:layout_height="wrap_content"
                     android:text="@string/login_show_qr" />
 
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/loginAutoStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_auto_start" />
+
+                <!-- Shown while auto start is ticked but "Display over other apps" is not granted -->
+                <TextView
+                    android:id="@+id/loginAutoStartPermission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:minHeight="48dp"
+                    android:paddingStart="32dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/login_auto_start_permission"
+                    android:textColor="@color/danger"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/loginStatus"
                     android:layout_width="match_parent"

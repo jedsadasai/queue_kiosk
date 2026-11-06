@@ -55,6 +55,8 @@
     <string name="login_show_total">แสดงจำนวนคิวรอ</string>
     <string name="login_show_history">แสดงใบซักประวัติ OPD/ER</string>
     <string name="login_show_qr">พิมพ์ QR Code บนบัตรคิว</string>
+    <string name="login_auto_start">เปิดแอปอัตโนมัติเมื่อเปิดเครื่อง</string>
+    <string name="login_auto_start_permission">⚠ Android ต้องการสิทธิ์ \"แสดงทับแอปอื่น\" (Display over other apps) จึงจะเปิดแอปเองได้ แตะที่นี่เพื่ออนุญาต</string>
     <string name="login_button">เข้าสู่ระบบ</string>
     <string name="login_signing_in">กำลังเข้าสู่ระบบ…</string>
     <string name="login_success">เข้าสู่ระบบสำเร็จ</string>

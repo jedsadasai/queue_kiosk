@@ -1,8 +1,10 @@
 package com.queuekiosk.ui
 
+import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -12,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.queuekiosk.AutoStart
 import com.queuekiosk.R
 import com.queuekiosk.databinding.ActivityLoginBinding
 import com.queuekiosk.kiosk
@@ -54,6 +57,18 @@ class LoginActivity : AppCompatActivity() {
             binding.loginShowHistory.isChecked = prefs.showHistorySheet
             binding.loginShowTotal.isChecked = prefs.showTotalQueue
             binding.loginShowQr.isChecked = prefs.showQrCode
+            binding.loginAutoStart.isChecked = prefs.autoStartOnBoot
+        }
+
+        // Auto start after boot needs "Display over other apps" on Android 10+.
+        binding.loginAutoStart.setOnCheckedChangeListener { _, _ -> updateAutoStartHint() }
+        binding.loginAutoStartPermission.setOnClickListener {
+            try {
+                startActivity(AutoStart.permissionSettingsIntent(this))
+            } catch (e: ActivityNotFoundException) {
+                // Some Android Go devices have no such settings page.
+                Toast.makeText(this, R.string.login_auto_start_permission, Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.loginOpenHour.adapter = hourAdapter(openHours)
@@ -83,6 +98,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateAutoStartHint() // the user may be back from the Settings page
+    }
+
+    private fun updateAutoStartHint() {
+        binding.loginAutoStartPermission.isVisible =
+            binding.loginAutoStart.isChecked && !AutoStart.canStartFromBackground(this)
+    }
+
     private fun submit() {
         if (KioskPermissions.granted(this)) {
             viewModel.login(readForm())
@@ -100,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
         showHistorySheet = binding.loginShowHistory.isChecked,
         showTotalQueue = binding.loginShowTotal.isChecked,
         showQrCode = binding.loginShowQr.isChecked,
+        autoStartOnBoot = binding.loginAutoStart.isChecked,
     )
 
     private fun onLoggedIn() = Navigator.routeAfterAuth(this)

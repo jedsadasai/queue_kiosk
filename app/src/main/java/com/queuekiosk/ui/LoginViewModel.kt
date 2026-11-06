@@ -23,6 +23,7 @@ data class LoginForm(
     val showHistorySheet: Boolean,
     val showTotalQueue: Boolean,
     val showQrCode: Boolean,
+    val autoStartOnBoot: Boolean,
 )
 
 class LoginViewModel(app: Application) : AndroidViewModel(app) {
@@ -50,6 +51,7 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
                     showHistorySheet = form.showHistorySheet
                     showTotalQueue = form.showTotalQueue
                     showQrCode = form.showQrCode
+                    autoStartOnBoot = form.autoStartOnBoot
                 }
                 _state.value = UiState(status = str(R.string.login_success))
                 _loggedIn.send(Unit)
