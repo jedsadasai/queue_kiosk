@@ -50,6 +50,10 @@ node tools/mock-server/server.js   # dependency-free fake fleQ API on :8080 (env
   - Every driver prints that bitmap, so ticket design changes are layout-only.
   - `ticket_logo.png` is pure black and white on purpose, because thermal printers dither grey.
 - **Auto start:** `BootReceiver` launches the app on `BOOT_COMPLETED`. This needs the user to grant "Display over other apps"; see the README.
+  - Its intent filter has priority 999 so it isn't queued behind every other app's boot receiver (a ~45 s gain on Samsung).
+  - It passes `SplashActivity.EXTRA_FROM_BOOT`, which skips the splash delay.
+  - The splash waits for a network (`data/NetworkWaiter`) before each re-login attempt.
+  - Don't use direct boot (`LOCKED_BOOT_COMPLETED`): `KioskPrefs` is in credential-encrypted storage, and `openSecurePrefs` deletes the file when it can't open it.
 
 ## Liquid glass UI (`ui/glass/`)
 - **Screen root:** every screen's root view is `GlassBackdropLayout`. It draws `res/drawable-nodpi/bg_hospital.jpg` with a top-anchored centerCrop (`GlassBlur.cropToFill`), so the logo printed in the image is never cut off.

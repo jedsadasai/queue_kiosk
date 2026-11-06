@@ -41,6 +41,7 @@
 
     <!-- Splash -->
     <string name="splash_signing_in">กำลังเข้าสู่ระบบ…</string>
+    <string name="splash_waiting_network">กำลังรอเชื่อมต่อเครือข่าย…</string>
     <string name="splash_retrying">%1$s\nกำลังเชื่อมต่อเซิฟเวอร์อีกครั้ง…</string>
 
     <!-- Login -->

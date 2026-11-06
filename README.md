@@ -123,6 +123,15 @@ node tools/mock-server/server.js            # prints http://<your-PC-IP>:8080
 re-logs in by itself, retrying every 5 s until Wi-Fi and the server are up, and goes to the kiosk screen.
 It is on by default and can be switched off with "เปิดแอปอัตโนมัติเมื่อเปิดเครื่อง" at login.
 
+How it is kept fast:
+- **Receiver priority 999.** Android hands `BOOT_COMPLETED` to apps one at a time, highest priority first.
+  On a Samsung SM-T505 (Android 12) the kiosk at the default priority opened **64 s** after unlock;
+  with 999 it opens in **16–18 s**. The rest is Android finishing earlier boot broadcasts, which no app can skip.
+- **No splash delay** when opened by the receiver.
+- **Waits for Wi-Fi instead of failing.** If the network isn't up yet, the splash shows
+  "กำลังรอเชื่อมต่อเครือข่าย…" and signs in the moment it connects (measured: 0.7 s after Wi-Fi).
+  Failed sign-ins are retried after 1, 2, 3 s, then every 5 s.
+
 One-time setup on each tablet:
 1. **Allow "Display over other apps"** (แสดงทับแอปอื่น). Android 10+ blocks apps from opening themselves
    from the background without it. The login screen shows a red line to tap while it is missing.
@@ -130,6 +139,10 @@ One-time setup on each tablet:
 2. **Screen lock: None**. Android sends `BOOT_COMPLETED` only after the device is unlocked.
 3. Open the app once after installing. Android doesn't send boot events to an app that has never been opened.
 4. Some brands (Xiaomi, Oppo, Vivo, Huawei…) also need **Autostart** allowed in their own security/battery app.
+   On Samsung: Settings → Apps → Queue Kiosk → Battery → **Unrestricted**, and keep it out of "Sleeping apps".
+
+To measure it: `adb reboot`, then compare in `adb logcat -b events -v monotonic` the `am_proc_start … com.queuekiosk`
+and `wm_create_activity … KioskActivity` lines (the receiver also logs `BootReceiver: … received N ms after boot`).
 
 ## Not ported from fleQ
 - The open/close alarms (`RajtheneeAlarmManager`). Opening hours are checked when the button is pressed,

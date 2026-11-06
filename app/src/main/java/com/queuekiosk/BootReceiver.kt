@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.SystemClock
 import android.provider.Settings
 import android.util.Log
 import com.queuekiosk.ui.SplashActivity
@@ -17,12 +18,17 @@ import com.queuekiosk.ui.SplashActivity
  * Android 10+ blocks activity starts from the background. A receiver may still start one if the
  * user has granted "Display over other apps" (SYSTEM_ALERT_WINDOW), which the login screen asks for.
  * BOOT_COMPLETED arrives only once the device is unlocked, so kiosks should use screen lock "None".
+ *
+ * BOOT_COMPLETED is delivered to apps one at a time, highest priority first. On a Samsung Tab A7
+ * an app at the default priority waited over a minute for its turn, so the manifest gives this
+ * receiver priority 999 (the highest an ordinary app may use).
  */
 class BootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action !in BOOT_ACTIONS) return
         if (!context.kiosk.prefs.autoStartOnBoot) return
+        Log.i(TAG, "${intent.action} received ${SystemClock.elapsedRealtime()} ms after boot, opening the kiosk")
 
         if (!AutoStart.canStartFromBackground(context)) {
             Log.w(TAG, "\"Display over other apps\" is not granted: Android may block the auto start")
@@ -31,6 +37,7 @@ class BootReceiver : BroadcastReceiver() {
             context.startActivity(
                 Intent(context, SplashActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    .putExtra(SplashActivity.EXTRA_FROM_BOOT, true)
             )
         } catch (e: RuntimeException) {
             Log.e(TAG, "Could not open the kiosk after boot", e)

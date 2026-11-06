@@ -67,10 +67,12 @@
             android:name=".ui.KioskActivity"
             android:launchMode="singleTask" />
 
+        <!-- priority 999: BOOT_COMPLETED goes to receivers one at a time, highest priority first.
+             At the default 0, a Samsung tablet made us wait about a minute behind other apps. -->
         <receiver
             android:name=".BootReceiver"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="999">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />

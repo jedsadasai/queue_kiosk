@@ -57,20 +57,28 @@ class AuthRepository(
     }
 
     /**
-     * Retries [reLogin] every [retryDelayMs] until it succeeds, as fleQ's ReLoginCall.tryToReLogin
-     * does (5 s). It gives up immediately on errors that retrying cannot fix (bad credentials, no stored login).
+     * Retries [reLogin] until it succeeds, as fleQ's ReLoginCall.tryToReLogin does. It gives up
+     * immediately on errors that retrying cannot fix (bad credentials, no stored login).
+     *
+     * fleQ waited 5 s between attempts. Here the first retries come sooner ([RETRY_DELAYS_MS]),
+     * because right after power-on the server is often only a moment away (Wi-Fi or DNS still
+     * coming up). [beforeAttempt] runs before every attempt, e.g. to wait until a network exists.
      */
     suspend fun reLoginWithRetry(
-        retryDelayMs: Long = RETRY_DELAY_MS,
+        retryDelaysMs: List<Long> = RETRY_DELAYS_MS,
+        beforeAttempt: suspend () -> Unit = {},
         onRetry: (ApiException) -> Unit = {},
     ): LoginData {
+        var attempt = 0
         while (true) {
+            beforeAttempt()
             try {
                 return reLogin()
             } catch (e: ApiException) {
                 if (e.kind == ApiException.Kind.BAD_CREDENTIALS || e.kind == ApiException.Kind.NOT_LOGGED_IN) throw e
                 onRetry(e)
-                delay(retryDelayMs)
+                delay(retryDelaysMs[attempt.coerceAtMost(retryDelaysMs.lastIndex)])
+                attempt++
             }
         }
     }
@@ -78,6 +86,7 @@ class AuthRepository(
     companion object {
         /** fleQ compared against FirebaseAnalytics.Param.SUCCESS, which is the string "success". */
         const val STATUS_SUCCESS = "success"
-        const val RETRY_DELAY_MS = 5_000L
+        /** Waits between re-login attempts. The last one repeats (fleQ's fixed 5 s). */
+        val RETRY_DELAYS_MS = listOf(1_000L, 2_000L, 3_000L, 5_000L)
     }
 }

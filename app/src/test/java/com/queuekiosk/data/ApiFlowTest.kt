@@ -150,6 +150,33 @@ class ApiFlowTest {
     }
 
     @Test
+    fun `re-login retries quickly at first - 1 s then 2 s - and runs beforeAttempt every time`() = runTest {
+        session.baseUrl = baseUrl()
+        session.username = "kiosk1"
+        session.password = "pw"
+        server.enqueue(MockResponse().setResponseCode(503))
+        server.enqueue(MockResponse().setResponseCode(503))
+        server.enqueue(MockResponse().setBody(loginOk))
+        var attempts = 0
+        val errors = mutableListOf<ApiException.Kind>()
+
+        val data = auth.reLoginWithRetry(beforeAttempt = { attempts++ }, onRetry = { errors += it.kind })
+
+        assertEquals(7, data.workflow?.id)
+        assertEquals(3, attempts)
+        assertEquals(listOf(ApiException.Kind.SERVER, ApiException.Kind.SERVER), errors)
+        assertEquals(1_000L + 2_000L, testScheduler.currentTime) // virtual time spent waiting
+        assertEquals("Bearer tok-1", session.token)
+    }
+
+    @Test
+    fun `re-login retry waits repeat the last delay`() {
+        val delays = AuthRepository.RETRY_DELAYS_MS
+        assertEquals(5_000L, delays.last()) // fleQ's interval stays the steady state
+        assertTrue(delays.zipWithNext().all { (a, b) -> a <= b })
+    }
+
+    @Test
     fun `add-queue without a login is NOT_LOGGED_IN and makes no request`() = runTest {
         try {
             queue.addQueue()

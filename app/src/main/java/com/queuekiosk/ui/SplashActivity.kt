@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.queuekiosk.R
 import com.queuekiosk.data.ApiException
+import com.queuekiosk.data.NetworkWaiter
 import com.queuekiosk.databinding.ActivitySplashBinding
 import com.queuekiosk.kiosk
 import kotlinx.coroutines.Job
@@ -47,8 +48,10 @@ class SplashActivity : AppCompatActivity() {
         // Recreated (e.g. rotation): skip the delay, and don't re-ask if the permission dialog is
         // already up; its result is delivered to this new instance's launcher.
         val recreated = savedInstanceState != null
+        // Opened by BootReceiver: no one is looking at a logo yet, so go straight to work.
+        val fromBoot = intent.getBooleanExtra(EXTRA_FROM_BOOT, false)
         lifecycleScope.launch {
-            if (!recreated) delay(SPLASH_MS)
+            if (!recreated && !fromBoot) delay(SPLASH_MS)
             when {
                 !kiosk.prefs.hasSession -> Navigator.toLogin(this@SplashActivity)
                 KioskPermissions.granted(this@SplashActivity) -> reLogin()
@@ -60,11 +63,23 @@ class SplashActivity : AppCompatActivity() {
     private fun reLogin() {
         if (!kiosk.prefs.hasSession || reLoginJob?.isActive == true) return
         binding.splashStatus.setText(R.string.splash_signing_in)
+        val network = NetworkWaiter(this)
         reLoginJob = lifecycleScope.launch {
             try {
-                kiosk.auth.reLoginWithRetry(onRetry = { e ->
-                    binding.splashStatus.text = getString(R.string.splash_retrying, e.userMessage(this@SplashActivity))
-                })
+                kiosk.auth.reLoginWithRetry(
+                    // After power-on Wi-Fi is often still connecting: wait for it rather than fail
+                    // and sleep. If it never comes, try anyway so the error is shown and retried.
+                    beforeAttempt = {
+                        if (!network.isConnected()) {
+                            binding.splashStatus.setText(R.string.splash_waiting_network)
+                            network.awaitNetwork(NETWORK_WAIT_MS)
+                            binding.splashStatus.setText(R.string.splash_signing_in)
+                        }
+                    },
+                    onRetry = { e ->
+                        binding.splashStatus.text = getString(R.string.splash_retrying, e.userMessage(this@SplashActivity))
+                    },
+                )
                 Navigator.routeAfterAuth(this@SplashActivity)
             } catch (e: ApiException) {
                 Toast.makeText(this@SplashActivity, e.userMessage(this@SplashActivity), Toast.LENGTH_LONG).show()
@@ -73,7 +88,10 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private companion object {
-        const val SPLASH_MS = 1_000L
+    companion object {
+        /** Set by [com.queuekiosk.BootReceiver]: skips the splash delay. */
+        const val EXTRA_FROM_BOOT = "from_boot"
+        private const val SPLASH_MS = 1_000L
+        private const val NETWORK_WAIT_MS = 30_000L
     }
 }
