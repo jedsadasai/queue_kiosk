@@ -3,11 +3,22 @@
     <color name="brand">#0B6E4F</color>
     <color name="brand_light">#DDF2EA</color>
     <color name="on_brand_secondary">#CCE9DE</color>
-    <color name="background">#F4F7F6</color>
+    <!-- Matches the edges of bg_hospital.jpg, shown for a moment before the image is drawn -->
+    <color name="background">#EAF6EF</color>
     <color name="text_primary">#1B2421</color>
-    <color name="text_secondary">#5B6763</color>
+    <color name="text_secondary">#4A5753</color>
     <color name="danger">#C62828</color>
     <color name="ok">#2E7D32</color>
     <color name="white">#FFFFFF</color>
     <color name="divider">#D5DDDA</color>
+
+    <!-- Liquid glass tints (top -> bottom gradient over the blurred background, see GlassPainter) -->
+    <color name="glass_primary_top">#9912936A</color>
+    <color name="glass_primary_bottom">#D90B6E4F</color>
+    <color name="glass_clear_top">#8CFFFFFF</color>
+    <color name="glass_clear_bottom">#4DFFFFFF</color>
+    <color name="glass_card_top">#D1FFFFFF</color>
+    <color name="glass_card_bottom">#B8FFFFFF</color>
+    <color name="glass_danger_top">#B3E53935</color>
+    <color name="glass_danger_bottom">#E0C62828</color>
 </resources>

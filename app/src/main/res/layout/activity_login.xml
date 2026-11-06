@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.queuekiosk.ui.glass.GlassBackdropLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ScrollView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,13 +15,19 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="32dp">
 
-        <com.google.android.material.card.MaterialCardView
+        <!-- Keeps the form below the logo printed on the background -->
+        <com.queuekiosk.ui.glass.BackdropHeaderSpace
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.queuekiosk.ui.glass.GlassCardLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:glassCornerRadius="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,7 +183,7 @@
                     android:indeterminateTint="@color/brand"
                     android:visibility="gone" />
 
-                <com.google.android.material.button.MaterialButton
+                <com.queuekiosk.ui.glass.LiquidGlassButton
                     android:id="@+id/loginButton"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
@@ -182,6 +191,7 @@
                     android:text="@string/login_button"
                     android:textSize="20sp" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </com.queuekiosk.ui.glass.GlassCardLayout>
     </LinearLayout>
 </ScrollView>
+</com.queuekiosk.ui.glass.GlassBackdropLayout>

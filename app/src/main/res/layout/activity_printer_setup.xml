@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.queuekiosk.ui.glass.GlassBackdropLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="24dp">
+
+    <!-- Keeps the content below the logo printed on the background -->
+    <com.queuekiosk.ui.glass.BackdropHeaderSpace
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +32,9 @@
             android:textSize="26sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.queuekiosk.ui.glass.LiquidGlassButton
             android:id="@+id/setupBack"
-            style="@style/Widget.Material3.Button.TextButton"
+            app:glassVariant="clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setup_back_to_login" />
@@ -102,43 +112,50 @@
             android:textColor="@color/text_secondary"
             android:textSize="16sp" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.queuekiosk.ui.glass.LiquidGlassButton
             android:id="@+id/setupEnableBluetooth"
-            style="@style/Widget.Material3.Button.TonalButton"
+            app:glassVariant="clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/setup_enable_bluetooth"
             android:visibility="gone" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.queuekiosk.ui.glass.LiquidGlassButton
             android:id="@+id/setupRescan"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:glassVariant="clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setup_rescan" />
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.queuekiosk.ui.glass.GlassCardLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
-        app:cardCornerRadius="12dp">
+        app:glassCornerRadius="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/setupDevices"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.google.android.material.card.MaterialCardView>
+    </com.queuekiosk.ui.glass.GlassCardLayout>
 
-    <TextView
+    <!-- On glass: this row sits over the busy bottom of the background image -->
+    <com.queuekiosk.ui.glass.GlassTextView
         android:id="@+id/setupSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="6dp"
         android:textColor="@color/text_primary"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:glassCornerRadius="16dp"
+        app:glassVariant="card" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -147,18 +164,19 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
+        <com.queuekiosk.ui.glass.LiquidGlassButton
             android:id="@+id/setupTestPrint"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:glassVariant="clear"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_marginEnd="12dp"
             android:text="@string/setup_test_print" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.queuekiosk.ui.glass.LiquidGlassButton
             android:id="@+id/setupContinue"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:text="@string/setup_continue" />
     </LinearLayout>
 </LinearLayout>
+</com.queuekiosk.ui.glass.GlassBackdropLayout>

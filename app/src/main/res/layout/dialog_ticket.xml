@@ -34,7 +34,7 @@
         android:textColor="@color/text_secondary"
         android:textSize="16sp" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.queuekiosk.ui.glass.LiquidGlassButton
         android:id="@+id/dialogTicketClose"
         android:layout_width="wrap_content"
         android:layout_height="56dp"

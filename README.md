@@ -17,6 +17,7 @@ app/                         the kiosk app (com.queuekiosk)
   printer/escpos/            BluetoothEscPosDriver (SPP socket), EscPosEncoder (GS v 0 raster)
   ticket/                    TicketRenderer (layout -> bitmap at paper width), QrCode
   ui/                        Splash, Login, PrinterSetup, Kiosk screens
+  ui/glass/                  hospital background + liquid glass buttons/cards (blur, painter, views)
 printer-core/                PrinterDriver interface (shared with the Epson module)
 printer-epson/               optional Epson ePOS2 driver (built only if you add the SDK, see its README)
 tools/mock-server/           dependency-free Node mock of the fleQ API
@@ -98,9 +99,22 @@ node tools/mock-server/server.js            # prints http://<your-PC-IP>:8080
   - Login options: "แสดงจำนวนคิวรอ" (waiting count), "แสดงใบซักประวัติ OPD/ER" (history sheet),
     "พิมพ์ QR Code บนบัตรคิว" (prints `url_qr`; off by default, since fleQ never printed it).
   - Fonts (`res/font/`): Noto Serif Thai SemiBold (SIL OFL 1.1) and Arimo Bold (Apache 2.0), the same as fleQ.
-- Logo: `res/drawable-nodpi/logo_hospital.png` (colour: splash, kiosk header and launcher icon via
+- Logo: `res/drawable-nodpi/logo_hospital.png` (colour: splash card and launcher icon via
   `drawable/ic_launcher.xml`) and `res/drawable-nodpi/ticket_logo.png` (pure black/white for the thermal
   printer, so it prints crisp instead of dithered grey).
+- Background: `res/drawable-nodpi/bg_hospital.jpg`, drawn behind every screen by `GlassBackdropLayout`.
+  It fills the screen like centerCrop but is anchored to the **top**, so the logo printed on it is never cut off.
+  - Portrait: content starts below the image's logo (`BackdropHeaderSpace`), and the kiosk button stays
+    above the building in the bottom ~40%.
+  - Landscape (`res/layout-land/`): the logo fills the upper-left, so content goes in the right half.
+  - To use another image, replace the file. If its logo band has a different height, update
+    `GlassBackground.LOGO_BAND_BOTTOM` (fraction of the image height). Supply at least 1200×1800 px for tablets.
+- Liquid glass (`ui/glass/`): `LiquidGlassButton` (a MaterialButton), `GlassCardLayout` and `GlassTextView`.
+  - Each draws the **blurred background behind itself**, plus a tint, a top sheen, a bright rim and a soft shadow.
+  - The blur is precomputed once from the static background, so it works on Android 10+ without RenderEffect.
+    In a dialog there is no background, so a flat frost is used instead.
+  - `app:glassVariant`: `primary` (green, buttons' default), `clear` (white), `card` (forms; cards' default) or `danger`.
+  - Tints: `glass_*` in `res/values/colors.xml`.
 - Text: `app/src/main/res/values/strings.xml` (Thai, mostly taken from fleQ's wording).
 - Package name: `com.queuekiosk` (`namespace`/`applicationId` in `app/build.gradle.kts`).
 

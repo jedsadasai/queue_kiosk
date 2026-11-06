@@ -1,122 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- The background image supplies the hospital logo (top-left) and the building (bottom).
+     Content sits between them on liquid glass. -->
+<com.queuekiosk.ui.glass.GlassBackdropLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- Long-press opens the staff menu (change printer / log out) -->
     <LinearLayout
-        android:id="@+id/kioskHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/brand"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="24dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:background="@drawable/bg_logo_circle"
-            android:contentDescription="@null"
-            android:padding="3dp"
-            android:src="@drawable/logo_hospital" />
+        <!-- Top band over the image's logo. Long-press opens the staff menu (change printer / log out) -->
+        <LinearLayout
+            android:id="@+id/kioskHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp">
+
+            <com.queuekiosk.ui.glass.BackdropHeaderSpace
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!-- The right half only, so the chip never covers the hospital name in the image -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            <com.queuekiosk.ui.glass.GlassCardLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                app:glassCornerRadius="20dp"
+                app:glassVariant="clear">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/kioskDate"
+                        android:gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kioskPrinterStatus"
+                        android:gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.queuekiosk.ui.glass.GlassCardLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.queuekiosk.ui.glass.GlassTextView
+            android:id="@+id/kioskClosedBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:glassCornerRadius="24dp"
+            app:glassVariant="danger" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp">
 
             <TextView
                 android:id="@+id/kioskOrgName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:gravity="center"
+                android:textColor="@color/brand"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/kioskDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/on_brand_secondary"
-                android:textSize="18sp" />
+                android:layout_marginTop="8dp"
+                android:text="@string/kiosk_welcome"
+                android:textColor="@color/text_primary"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/kioskWorkflow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="26sp" />
+
+            <!-- The spinner sits on the button, so showing it never moves the layout -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp">
+
+            <com.queuekiosk.ui.glass.LiquidGlassButton
+                android:id="@+id/kioskTakeQueue"
+                android:layout_width="420dp"
+                android:layout_height="170dp"
+                android:text="@string/kiosk_take_queue"
+                android:textSize="56sp"
+                android:textStyle="bold"
+                app:cornerRadius="48dp"
+                app:glassVariant="primary" />
+
+            <ProgressBar
+                android:id="@+id/kioskProgress"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="14dp"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
+            </FrameLayout>
+
+            <com.queuekiosk.ui.glass.GlassTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="6dp"
+                android:text="@string/kiosk_help"
+                android:textColor="@color/text_secondary"
+                android:textSize="18sp"
+                app:glassCornerRadius="20dp"
+                app:glassVariant="clear" />
         </LinearLayout>
+
+        <!-- Much taller than the top spacer: keeps the content above the building and taglines -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.85" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/kioskClosedBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/danger"
-        android:gravity="center"
-        android:padding="12dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="32dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/kiosk_welcome"
-            android:textColor="@color/text_primary"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/kioskWorkflow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="26sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/kioskTakeQueue"
-            android:layout_width="420dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/kiosk_take_queue"
-            android:textSize="56sp"
-            android:textStyle="bold"
-            app:cornerRadius="32dp"
-            app:elevation="6dp" />
-
-        <ProgressBar
-            android:id="@+id/kioskProgress"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:indeterminateTint="@color/brand"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:text="@string/kiosk_help"
-            android:textColor="@color/text_secondary"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/kioskPrinterStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:padding="12dp"
-        android:textSize="14sp" />
-</LinearLayout>
+</com.queuekiosk.ui.glass.GlassBackdropLayout>
